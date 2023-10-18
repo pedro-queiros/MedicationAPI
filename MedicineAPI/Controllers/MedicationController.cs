@@ -8,22 +8,25 @@ namespace MedicationAPI.Controllers
     [Route("[controller]")]
     public class MedicationController : ControllerBase
     {
-        private readonly MedicationDb _db;
+        private readonly IMedicationDb _db;
 
-        public MedicationController(MedicationDb db)
+        public MedicationController(IMedicationDb db)
         {
             _db = db;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Medication>>> GetMedications() 
-        { 
+        {
+            
             return await _db.Medications.ToListAsync();
+
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Medication>> GetMedication (int id)
         {
+            var test = _db.Medications;
             if ( await _db.Medications.FindAsync(id) is Medication medication)
                 return medication;
 

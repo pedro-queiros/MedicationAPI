@@ -2,14 +2,15 @@
 
 namespace MedicationAPI.Models
 {
-    public class MedicationDb : DbContext
+    public class MedicationDb : IMedicationDb
     {
         public MedicationDb(DbContextOptions options) : base(options)
         {
 
         }
 
-        public DbSet<Medication> Medications { get; set; }
+
+        public override DbSet<Medication> Medications { get; set; }
 
     }
 }

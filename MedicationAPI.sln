@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicationAPI", "MedicineAPI\MedicationAPI.csproj", "{27D2689F-D57B-4939-8C45-852BE5A5A73B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicationAPI.Test", "MedicationAPI.Test\MedicationAPI.Test.csproj", "{10639753-8D15-49B1-94B7-1C60217CE0AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicationAPI.Tests", "MedicationAPI.Test\MedicationAPI.Tests.csproj", "{10639753-8D15-49B1-94B7-1C60217CE0AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using MedicationAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,13 @@ builder.Services.AddDbContext<MedicationDb>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     
+});
+builder.Services.AddApiVersioning(options =>
+{
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+
 });
 builder.Services.AddScoped<IMedicationDb, MedicationDb>();
 builder.Services.AddControllers();

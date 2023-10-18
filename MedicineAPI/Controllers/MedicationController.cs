@@ -1,11 +1,13 @@
-﻿using MedicationAPI.Models;
+﻿using Asp.Versioning;
+using MedicationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicationAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class MedicationController : ControllerBase
     {
         private readonly IMedicationDb _db;

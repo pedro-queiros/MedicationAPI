@@ -1,6 +1,8 @@
 ﻿using Asp.Versioning;
 using MedicationAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicationAPI.Controllers
@@ -8,7 +10,7 @@ namespace MedicationAPI.Controllers
     [ApiController]
     [Route("/api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class MedicationController : ControllerBase
+    public class MedicationController : Controller
     {
         private readonly IMedicationDb _db;
 
@@ -18,6 +20,7 @@ namespace MedicationAPI.Controllers
         }
 
         [HttpGet]
+        [EnableQuery()]
         public async Task<ActionResult<IEnumerable<Medication>>> GetMedications() 
         {
             
@@ -26,6 +29,7 @@ namespace MedicationAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [EnableQuery()]
         public async Task<ActionResult<Medication>> GetMedication (int id)
         {
             var test = _db.Medications;

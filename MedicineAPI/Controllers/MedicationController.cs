@@ -7,19 +7,40 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicationAPI.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.OData.Routing.Controllers.ODataController" />
     [ApiController]
     [Route("/api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class MedicationController : Controller
+    public class MedicationController : ODataController
     {
+        #region Members
+
         private readonly IMedicationDb _db;
+
+        #endregion
+
+        #region Constructor
 
         public MedicationController(IMedicationDb db)
         {
             _db = db;
         }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the medications.
+        /// </summary>
+        /// <returns>
+        /// The enumerable of Medication.
+        /// </returns>
         [HttpGet]
+        [ProducesResponseType(200)]
         [EnableQuery()]
         public async Task<ActionResult<IEnumerable<Medication>>> GetMedications() 
         {
@@ -28,11 +49,18 @@ namespace MedicationAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Gets the medication.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         [EnableQuery()]
         public async Task<ActionResult<Medication>> GetMedication (int id)
         {
-            var test = _db.Medications;
+
             if ( await _db.Medications.FindAsync(id) is Medication medication)
                 return medication;
 
@@ -40,6 +68,8 @@ namespace MedicationAPI.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult> CreateMedication (Medication medication)
         {
             if (medication is null)
@@ -52,6 +82,8 @@ namespace MedicationAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult> UpdateMedication (int id, Medication updatedMedication)
         {
             var medication = await _db.Medications.FindAsync(id);
@@ -69,6 +101,8 @@ namespace MedicationAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult> DeleteMedication (int id)
         {
             if (await _db.Medications.FindAsync(id) is Medication medication)
@@ -81,5 +115,7 @@ namespace MedicationAPI.Controllers
 
             return NotFound();
         }
+
+        #endregion
     }
 }

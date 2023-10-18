@@ -2,7 +2,7 @@
 
 namespace MedicationAPI.Models
 {
-    public  class IMedicationDb : DbContext
+    public abstract class IMedicationDb : DbContext
     {
         public IMedicationDb()
         {

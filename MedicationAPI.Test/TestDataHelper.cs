@@ -1,6 +1,6 @@
 ﻿using MedicationAPI.Models;
 
-namespace MedicationAPI.Test
+namespace MedicationAPI.Tests
 {
     public static class TestDataHelper
     {

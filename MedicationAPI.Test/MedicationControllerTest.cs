@@ -3,9 +3,10 @@ using MedicationAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
+using Xunit;
 
 
-namespace MedicationAPI.Test
+namespace MedicationAPI.Tests
 {
     public class MedicationControllerTest
     {

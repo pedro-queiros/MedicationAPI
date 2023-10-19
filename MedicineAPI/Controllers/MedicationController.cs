@@ -7,8 +7,9 @@ using MedicationAPI_BAL.Contracts;
 
 namespace MedicationAPI.Controllers
 {
+
     /// <summary>
-    /// 
+    /// MedicationController class to manage the controllers for each endpoint
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.OData.Routing.Controllers.ODataController" />
     [ApiController]
@@ -18,12 +19,19 @@ namespace MedicationAPI.Controllers
     {
         #region Members
 
+        /// <summary>
+        /// The service medication
+        /// </summary>
         private readonly IServiceMedication _serviceMedication;
 
         #endregion
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MedicationController"/> class.
+        /// </summary>
+        /// <param name="serviceMedication">The service medication.</param>
         public MedicationController(IServiceMedication serviceMedication)
         {
             _serviceMedication = serviceMedication;
@@ -53,7 +61,9 @@ namespace MedicationAPI.Controllers
         /// Gets the medication.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The Ok response with the Medication with the respective id or Not Found response if id does not exists.
+        /// </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -69,6 +79,13 @@ namespace MedicationAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Creates the medication.
+        /// </summary>
+        /// <param name="medication">The medication.</param>
+        /// <returns>
+        /// The created Medication or Bad Request if medications is null.
+        /// </returns>
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -84,6 +101,14 @@ namespace MedicationAPI.Controllers
            
         }
 
+        /// <summary>
+        /// Updates the medication.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="medication">The medication.</param>
+        /// <returns>
+        /// No Content response.
+        /// </returns>
         [HttpPut("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -96,6 +121,13 @@ namespace MedicationAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Deletes the medication.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// No Content response.
+        /// </returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]

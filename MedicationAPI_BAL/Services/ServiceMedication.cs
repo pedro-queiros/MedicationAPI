@@ -5,16 +5,27 @@ using MedicationAPI_DAL.Models;
 
 namespace MedicationAPI_BAL.Services
 {
+    /// <summary>
+    /// ServiceMedication class which implements IServiceMedication interface.
+    /// </summary>
+    /// <seealso cref="MedicationAPI_BAL.Contracts.IServiceMedication" />
     public class ServiceMedication : IServiceMedication
     {
         #region Attributes
 
+        /// <summary>
+        /// The repository
+        /// </summary>
         public readonly IRepository<Medication> _repository;
 
         #endregion
 
         #region Constructores
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServiceMedication"/> class.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
         public ServiceMedication(IRepository<Medication> repository)
         {
             _repository = repository;
@@ -24,6 +35,12 @@ namespace MedicationAPI_BAL.Services
 
         #region Public Methods
 
+        /// <summary>
+        /// Gets all asynchronous.
+        /// </summary>
+        /// <returns>
+        /// Enumerable of Medication.
+        /// </returns>
         public async Task<IEnumerable<Medication>> GetAllAsync()
         {
 
@@ -31,6 +48,13 @@ namespace MedicationAPI_BAL.Services
 
         }
 
+        /// <summary>
+        /// Gets the by identifier asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// Medication with the respective id.
+        /// </returns>
         public async Task<Medication> GetByIdAsync(int id)
         {
 
@@ -38,6 +62,13 @@ namespace MedicationAPI_BAL.Services
 
         }
 
+        /// <summary>
+        /// Creates the asynchronous.
+        /// </summary>
+        /// <param name="medication">The medication.</param>
+        /// <returns>
+        /// Medication created.
+        /// </returns>
         public async Task<Medication> CreateAsync(Medication medication)
         {
 
@@ -45,6 +76,11 @@ namespace MedicationAPI_BAL.Services
 
         }
 
+        /// <summary>
+        /// Updates the asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="updatedMedication">The updated medication.</param>
         public async Task UpdateAsync(int id, Medication updatedMedication)
         {
 
@@ -62,6 +98,10 @@ namespace MedicationAPI_BAL.Services
 
         }
 
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         public async Task DeleteAsync(int id)
         {
 

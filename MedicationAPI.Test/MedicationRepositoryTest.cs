@@ -7,19 +7,31 @@ using Moq;
 using Xunit;
 
 
-namespace MedicationAPI_DAL.Tests
+namespace MedicationAPI.Tests
 {
+    /// <summary>
+    /// MedicationRespositoryTest class, having the test methods for the MedicationRepository class.
+    /// </summary>
     public class MedicationRepositoryTest
     {
         #region Attributes
 
+        /// <summary>
+        /// The database context
+        /// </summary>
         private readonly Mock<MedicationDbContext> _dbContext;
+        /// <summary>
+        /// The repository
+        /// </summary>
         private readonly RepositoryMedication _repository;
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MedicationRepositoryTest"/> class.
+        /// </summary>
         public MedicationRepositoryTest()
         {
             _dbContext = new Mock<MedicationDbContext>();
@@ -30,8 +42,11 @@ namespace MedicationAPI_DAL.Tests
 
         #region Public Test Methods
 
+        /// <summary>
+        /// Tests the get all asynchronous method.
+        /// </summary>
         [Fact]
-        public async Task TestGetMedications()
+        public async Task Test_GetAllAsync()
         {
             // Arrange
             Mock<DbSet<Medication>> dbSetMock = TestDataHelper.GetFakeMedicationList().BuildMock().BuildMockDbSet();
@@ -45,8 +60,11 @@ namespace MedicationAPI_DAL.Tests
             Assert.Equal(3, medications.Count());
         }
 
+        /// <summary>
+        /// Tests the get by identifier asynchronous method with valid identifier.
+        /// </summary>
         [Fact]
-        public async Task TestGetMedicationWithValidId()
+        public async Task Test_GetByIdAsync_With_Valid_Id()
         {
             // Arrange
             Mock<DbSet<Medication>> dbSetMock = TestDataHelper.GetFakeMedicationList().BuildMock().BuildMockDbSet();
@@ -61,8 +79,11 @@ namespace MedicationAPI_DAL.Tests
             Assert.Equal(1, medication.Id);
         }
 
+        /// <summary>
+        /// Tests the get by identifier asynchronous method with invalid identifier.
+        /// </summary>
         [Fact]
-        public async Task TestGetMedicationWithInvalidId()
+        public async Task Test_GetByIdAsync_With_Invalid_Id()
         {
             // Arrange
             Mock<DbSet<Medication>> dbSetMock = TestDataHelper.GetFakeMedicationList().BuildMock().BuildMockDbSet();
@@ -76,8 +97,11 @@ namespace MedicationAPI_DAL.Tests
             Assert.Null(medication);
         }
 
+        /// <summary>
+        /// Tests the create asynchronous method.
+        /// </summary>
         [Fact]
-        public async Task TestCreateMedication()
+        public async Task Test_CreateAsync()
         {
             // Arrange
             Medication medication = new Medication() { Id = 1, Name = "Test1", Quantity = 1, CreationDate = new DateTime(2023, 10, 17) };
@@ -91,8 +115,11 @@ namespace MedicationAPI_DAL.Tests
 
         }
 
+        /// <summary>
+        /// Tests the update asynchronous method.
+        /// </summary>
         [Fact]
-        public async Task TestUpdateMedication()
+        public async Task Test_UpdateAsync()
         {
             // Arrange
 
@@ -104,8 +131,11 @@ namespace MedicationAPI_DAL.Tests
             _dbContext.Verify(m => m.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once());
         }
 
+        /// <summary>
+        /// Tests the delete asynchronous method.
+        /// </summary>
         [Fact]
-        public async Task TestDeleteMedication()
+        public async Task Test_DeleteAsync()
         {
             // Arrange
 

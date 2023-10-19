@@ -1,9 +1,16 @@
 using MedicationAPI;
 
+/// <summary>
+/// Program class containing the main function
+/// </summary>
 public static class Program
 {
     #region Main Function
 
+    /// <summary>
+    /// Defines the entry point of the application.
+    /// </summary>
+    /// <param name="args">The arguments.</param>
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);

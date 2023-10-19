@@ -1,11 +1,20 @@
 ﻿using MedicationAPI_DAL.Models;
 
-namespace MedicationAPI_DAL.Tests
+namespace MedicationAPI.Tests
 {
+    /// <summary>
+    /// Test Data Helper with the fake data for the tests.
+    /// </summary>
     public static class TestDataHelper
     {
         #region Public Methods
 
+        /// <summary>
+        /// Gets the fake medication list.
+        /// </summary>
+        /// <returns>
+        /// List of Medication.
+        /// </returns>
         public static List<Medication> GetFakeMedicationList()
         {
             return new List<Medication>()

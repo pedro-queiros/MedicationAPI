@@ -11,16 +11,29 @@ using Microsoft.OData.ModelBuilder;
 
 namespace MedicationAPI
 {
+    /// <summary>
+    /// Startup class to setup the initial configuration of the services and application
+    /// </summary>
     public class Startup
     {
         #region Attributes
 
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
+        /// <value>
+        /// The configuration.
+        /// </value>
         public IConfiguration Configuration { get; }
 
         #endregion
 
         #region Constructores
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +43,10 @@ namespace MedicationAPI
 
         #region Public Methods
 
+        /// <summary>
+        /// Configures the services.
+        /// </summary>
+        /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             var modelBuilder = new ODataConventionModelBuilder();
@@ -56,6 +73,11 @@ namespace MedicationAPI
             services.AddSwaggerGen();
         }
 
+        /// <summary>
+        /// Configures the specified application.
+        /// </summary>
+        /// <param name="app">The application.</param>
+        /// <param name="env">The env.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -3,15 +3,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicationAPI_DAL.Data
 {
+    /// <summary>
+    /// MedicationDbContext class representing a session with a medication database.
+    /// </summary>
+    /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public class MedicationDbContext : DbContext
     {
         #region Constructores
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MedicationDbContext"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
         public MedicationDbContext(DbContextOptions<MedicationDbContext> options) : base(options)
         {
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MedicationDbContext"/> class.
+        /// </summary>
+        /// <remarks>
+        /// See <see href="https://aka.ms/efcore-docs-dbcontext">DbContext lifetime, configuration, and initialization</see>
+        /// for more information and examples.
+        /// </remarks>
         public MedicationDbContext()
         {
             
@@ -21,6 +36,12 @@ namespace MedicationAPI_DAL.Data
 
         #region DbSet
 
+        /// <summary>
+        /// Gets or sets the medications.
+        /// </summary>
+        /// <value>
+        /// The medications.
+        /// </value>
         public virtual DbSet<Medication> Medications { get; set; }
 
         #endregion

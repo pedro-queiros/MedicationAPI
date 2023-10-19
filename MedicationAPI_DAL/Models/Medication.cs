@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MedicationAPI_DAL.Models
 {
     /// <summary>
-    /// Medication Entity Model.
+    /// Medication entity model representing a medication.
     /// </summary>
     public class Medication
     {
-        #region Attributes
+        #region Public Properties
+
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -22,6 +25,7 @@ namespace MedicationAPI_DAL.Models
         /// <value>
         /// The name.
         /// </value>
+        [MinLength(1)]
         public string Name { get; set; }
 
         /// <summary>
@@ -37,9 +41,17 @@ namespace MedicationAPI_DAL.Models
         /// Gets or sets the creation date.
         /// </summary>
         /// <value>
-        /// The creation date.
+        /// The created on.
         /// </value>
         public DateTime CreationDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the updated on.
+        /// </summary>
+        /// <value>
+        /// The updated on.
+        /// </value>
+        //public DateTime UpdatedOn { get; set; }
 
         #endregion
     }

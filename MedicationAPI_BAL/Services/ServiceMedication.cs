@@ -13,14 +13,11 @@ namespace MedicationAPI_BAL.Services
     {
         #region Attributes
 
-        /// <summary>
-        /// The repository
-        /// </summary>
-        public readonly IRepository<Medication> _repository;
+        private readonly IRepository<Medication> _repository;
 
         #endregion
 
-        #region Constructores
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceMedication"/> class.
@@ -35,83 +32,49 @@ namespace MedicationAPI_BAL.Services
 
         #region Public Methods
 
-        /// <summary>
-        /// Gets all asynchronous.
-        /// </summary>
-        /// <returns>
-        /// Enumerable of Medication.
-        /// </returns>
+        /// <inheritdoc />
         public async Task<IEnumerable<Medication>> GetAllAsync()
         {
-
             return await _repository.GetAllAsync();
-
         }
 
-        /// <summary>
-        /// Gets the by identifier asynchronous.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>
-        /// Medication with the respective id.
-        /// </returns>
+        /// <inheritdoc />
         public async Task<Medication> GetByIdAsync(int id)
         {
-
             return await _repository.GetByIdAsync(id);
-
         }
 
-        /// <summary>
-        /// Creates the asynchronous.
-        /// </summary>
-        /// <param name="medication">The medication.</param>
-        /// <returns>
-        /// Medication created.
-        /// </returns>
+        /// <inheritdoc />
         public async Task<Medication> CreateAsync(Medication medication)
         {
-
             return await _repository.CreateAsync(medication);
-
         }
 
-        /// <summary>
-        /// Updates the asynchronous.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="updatedMedication">The updated medication.</param>
-        public async Task UpdateAsync(int id, Medication updatedMedication)
+        /// <inheritdoc />
+        public async Task<Medication> UpdateAsync(int id, Medication medication)
         {
+            Medication _medication = await _repository.GetByIdAsync(id);
 
-            if (id != 0)
+            if (_medication != null)
             {
-                var medication = await _repository.GetByIdAsync(id);
-                if (medication != null)
-                {
-                    var config = new MapperConfiguration(cfg => cfg.CreateMap<Medication, Medication>());
-                    var mapper = config.CreateMapper();
-                    medication = mapper.Map(updatedMedication, medication);
-                    await _repository.UpdateAsync(medication);
-                }
+                MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<Medication, Medication>());
+                IMapper mapper = config.CreateMapper();
+                _medication = mapper.Map(medication, _medication);
+                return await _repository.UpdateAsync(_medication);
             }
 
+            return null;
         }
 
-        /// <summary>
-        /// Deletes the asynchronous.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        public async Task DeleteAsync(int id)
+        /// <inheritdoc />
+        public async Task<int> DeleteAsync(int id)
         {
+            Medication medication = await _repository.GetByIdAsync(id);
 
-            if (id != 0)
-            {
-                var medication = await _repository.GetByIdAsync(id);
-                if (medication != null) 
-                    await _repository.DeleteAsync(medication);
-            }
+            if (medication != null) 
+                return await _repository.DeleteAsync(medication);
 
+            return 0;
         }
 
         #endregion

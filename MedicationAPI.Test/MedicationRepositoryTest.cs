@@ -6,23 +6,16 @@ using MockQueryable.Moq;
 using Moq;
 using Xunit;
 
-
 namespace MedicationAPI.Tests
 {
     /// <summary>
-    /// MedicationRespositoryTest class, having the test methods for the MedicationRepository class.
+    /// The MedicationRespositoryTest class, having the unit test methods for the MedicationRepository class.
     /// </summary>
     public class MedicationRepositoryTest
     {
         #region Attributes
 
-        /// <summary>
-        /// The database context
-        /// </summary>
         private readonly Mock<MedicationDbContext> _dbContext;
-        /// <summary>
-        /// The repository
-        /// </summary>
         private readonly RepositoryMedication _repository;
 
         #endregion
@@ -40,16 +33,16 @@ namespace MedicationAPI.Tests
 
         #endregion
 
-        #region Public Test Methods
+        #region Test Methods
 
         /// <summary>
-        /// Tests the get all asynchronous method.
+        /// Tests the GetAllAsync method.
         /// </summary>
         [Fact]
         public async Task Test_GetAllAsync()
         {
             // Arrange
-            Mock<DbSet<Medication>> dbSetMock = TestDataHelper.GetFakeMedicationList().BuildMock().BuildMockDbSet();
+            Mock<DbSet<Medication>> dbSetMock = MockData.GetMockMedications().BuildMock().BuildMockDbSet();
             _dbContext.Setup(x => x.Medications).Returns(dbSetMock.Object);
 
             // Act
@@ -61,14 +54,14 @@ namespace MedicationAPI.Tests
         }
 
         /// <summary>
-        /// Tests the get by identifier asynchronous method with valid identifier.
+        /// Tests the GetByIdAsync method with valid identifier.
         /// </summary>
         [Fact]
         public async Task Test_GetByIdAsync_With_Valid_Id()
         {
             // Arrange
-            Mock<DbSet<Medication>> dbSetMock = TestDataHelper.GetFakeMedicationList().BuildMock().BuildMockDbSet();
-            dbSetMock.Setup(x => x.FindAsync(1)).ReturnsAsync(TestDataHelper.GetFakeMedicationList().Find(m => m.Id == 1));
+            Mock<DbSet<Medication>> dbSetMock = MockData.GetMockMedications().BuildMock().BuildMockDbSet();
+            dbSetMock.Setup(x => x.FindAsync(1)).ReturnsAsync(MockData.GetMockMedications().Find(m => m.Id == 1));
             _dbContext.Setup(x => x.Medications).Returns(dbSetMock.Object);
 
             // Act
@@ -80,14 +73,14 @@ namespace MedicationAPI.Tests
         }
 
         /// <summary>
-        /// Tests the get by identifier asynchronous method with invalid identifier.
+        /// Tests the GetByIdAsync method with invalid identifier.
         /// </summary>
         [Fact]
         public async Task Test_GetByIdAsync_With_Invalid_Id()
         {
             // Arrange
-            Mock<DbSet<Medication>> dbSetMock = TestDataHelper.GetFakeMedicationList().BuildMock().BuildMockDbSet();
-            dbSetMock.Setup(x => x.FindAsync(4)).ReturnsAsync(TestDataHelper.GetFakeMedicationList().Find(m => m.Id == 4));
+            Mock<DbSet<Medication>> dbSetMock = MockData.GetMockMedications().BuildMock().BuildMockDbSet();
+            dbSetMock.Setup(x => x.FindAsync(4)).ReturnsAsync(MockData.GetMockMedications().Find(m => m.Id == 4));
             _dbContext.Setup(x => x.Medications).Returns(dbSetMock.Object);
 
             // Act
@@ -98,13 +91,13 @@ namespace MedicationAPI.Tests
         }
 
         /// <summary>
-        /// Tests the create asynchronous method.
+        /// Tests the CreateAsync method.
         /// </summary>
         [Fact]
         public async Task Test_CreateAsync()
         {
             // Arrange
-            Medication medication = new Medication() { Id = 1, Name = "Test1", Quantity = 1, CreationDate = new DateTime(2023, 10, 17) };
+            Medication medication = new Medication() { Id = 4, Name = "Aspirina", Quantity = 15, CreationDate = new DateTime(2023, 10, 17) };
 
             // Act
             await _repository.CreateAsync(medication);
@@ -116,12 +109,13 @@ namespace MedicationAPI.Tests
         }
 
         /// <summary>
-        /// Tests the update asynchronous method.
+        /// Tests the UpdateAsync method.
         /// </summary>
         [Fact]
         public async Task Test_UpdateAsync()
         {
             // Arrange
+            Medication medication = new Medication { Id = 2, Name = "Brufen", Quantity = 7, CreationDate = new DateTime(2023, 10, 12) };
 
             // Act
             await _repository.UpdateAsync(new Medication());
@@ -132,12 +126,13 @@ namespace MedicationAPI.Tests
         }
 
         /// <summary>
-        /// Tests the delete asynchronous method.
+        /// Tests the DeleteAsync method.
         /// </summary>
         [Fact]
         public async Task Test_DeleteAsync()
         {
             // Arrange
+            Medication medication = new Medication { Id = 2, Name = "Brufen", Quantity = 5, CreationDate = new DateTime(2023, 10, 12) };
 
             // Act
             await _repository.DeleteAsync(new Medication());

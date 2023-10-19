@@ -7,9 +7,8 @@ using MedicationAPI_BAL.Contracts;
 
 namespace MedicationAPI.Controllers
 {
-
     /// <summary>
-    /// MedicationController class to manage the controllers for each endpoint
+    /// The Medication Controller to manage the medication actions.
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.OData.Routing.Controllers.ODataController" />
     [ApiController]
@@ -17,24 +16,23 @@ namespace MedicationAPI.Controllers
     [ApiVersion("1.0")]
     public class MedicationController : ODataController
     {
-        #region Members
+        #region Attributes
 
-        /// <summary>
-        /// The service medication
-        /// </summary>
         private readonly IServiceMedication _serviceMedication;
+        private readonly ILogger<MedicationController> _logger;
 
         #endregion
 
-        #region Constructor
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MedicationController"/> class.
         /// </summary>
         /// <param name="serviceMedication">The service medication.</param>
-        public MedicationController(IServiceMedication serviceMedication)
+        public MedicationController(IServiceMedication serviceMedication, ILogger<MedicationController> logger)
         {
             _serviceMedication = serviceMedication;
+            _logger = logger;
         }
 
         #endregion
@@ -42,102 +40,141 @@ namespace MedicationAPI.Controllers
         #region Public Methods
 
         /// <summary>
-        /// Gets the medications.
+        /// Gets all medications asynchronous.
         /// </summary>
         /// <returns>
-        /// The enumerable of Medication.
-        /// </returns>
+        /// The enumerable of medications.</returns>
         [HttpGet]
         [ProducesResponseType(200)]
         [EnableQuery()]
-        public async Task<ActionResult<IEnumerable<Medication>>> GetMedications() 
+        public async Task<ActionResult<IEnumerable<Medication>>> GetAllMedicationsAsync() 
         {
-
-            return Ok(await _serviceMedication.GetAllAsync());
-
+            try
+            {
+                return Ok(await _serviceMedication.GetAllAsync());
+            }
+            catch (Exception ex)
+            {
+                HandleUnexpectedError("GetAllMedicationsAsync", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError,  "Internal Server Error");
+            }            
         }
 
         /// <summary>
-        /// Gets the medication.
+        /// Gets the medication asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
-        /// The Ok response with the Medication with the respective id or Not Found response if id does not exists.
+        /// The medication with the corresponding identifier.
         /// </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [EnableQuery()]
-        public async Task<ActionResult<Medication>> GetMedication (int id)
+        public async Task<ActionResult<Medication>> GetMedicationAsync(int id)
         {
+            try
+            {
+                Medication medication = await _serviceMedication.GetByIdAsync(id);
 
-            var medication = await _serviceMedication.GetByIdAsync(id);
-            if (medication != null)
+                if (medication is null)
+                    return NotFound();
+
                 return Ok(medication);
-
-            return NotFound();
-
+            }
+            catch (Exception ex)
+            {
+                HandleUnexpectedError("GetMedicationAsync", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
         }
 
         /// <summary>
-        /// Creates the medication.
+        /// Creates the medication asynchronous.
         /// </summary>
         /// <param name="medication">The medication.</param>
         /// <returns>
-        /// The created Medication or Bad Request if medications is null.
+        /// The medication created.
         /// </returns>
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> CreateMedication (Medication medication)
+        public async Task<ActionResult> CreateMedicationAsync(Medication medication)
         {
+            try
+            {
+                if (medication is null)
+                    return BadRequest();
 
-            if (medication is null)
-                return BadRequest();
+                Medication result = await _serviceMedication.CreateAsync(medication);
 
-            await _serviceMedication.CreateAsync(medication);
-
-            return CreatedAtAction(nameof(GetMedication), new { id = medication.Id }, medication);
-           
+                return CreatedAtAction(nameof(GetMedicationAsync), new { id = result.Id }, result);
+            }
+            catch (Exception ex)
+            {
+                HandleUnexpectedError("CreateMedicationAsync", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
         }
 
         /// <summary>
-        /// Updates the medication.
+        /// Updates the medication asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="medication">The medication.</param>
-        /// <returns>
-        /// No Content response.
-        /// </returns>
         [HttpPut("{id}")]
         [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> UpdateMedication (int id, Medication medication)
+        public async Task<ActionResult> UpdateMedicationAsync(int id, Medication medication)
         {
+            try
+            {
+                if (medication is null)
+                    return BadRequest();
 
-            await _serviceMedication.UpdateAsync(id, medication);
+                if (await _serviceMedication.UpdateAsync(id, medication) is null)
+                    return NotFound();
 
-            return NoContent();
-
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                HandleUnexpectedError("UpdateMedicationAsync", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
         }
 
         /// <summary>
-        /// Deletes the medication.
+        /// Deletes the medication asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>
-        /// No Content response.
-        /// </returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> DeleteMedication (int id)
+        public async Task<ActionResult> DeleteMedicationAsync(int id)
         {
+            try
+            {
+                if (await _serviceMedication.DeleteAsync(id) == 0)
+                    return NotFound();
 
-            await _serviceMedication.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                HandleUnexpectedError("DeleteMedicationAsync", ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
+        }
 
-            return NoContent();
+        #endregion
 
+        #region Private Methods
+
+        private void HandleUnexpectedError(string methodName, Exception ex)
+        {
+            _logger.LogError($"Unexpected error occurred on '{methodName}' method. Exception: {ex}.");
         }
 
         #endregion

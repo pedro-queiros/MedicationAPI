@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -24,6 +25,7 @@ namespace MedicationAPI_DAL.Migrations
                 {
                     table.PrimaryKey("PK_Medications", x => x.Id);
                     table.CheckConstraint("CHK_Quantity", "Quantity > 0");
+                    table.CheckConstraint("CHK_NameLen", "LEN(Name) > 0");
                 });
         }
 

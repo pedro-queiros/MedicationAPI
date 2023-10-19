@@ -12,23 +12,17 @@ using Microsoft.OData.ModelBuilder;
 namespace MedicationAPI
 {
     /// <summary>
-    /// Startup class to setup the initial configuration of the services and application
+    /// The Startup class to setup the initial configuration.
     /// </summary>
     public class Startup
     {
         #region Attributes
 
-        /// <summary>
-        /// Gets the configuration.
-        /// </summary>
-        /// <value>
-        /// The configuration.
-        /// </value>
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         #endregion
 
-        #region Constructores
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
@@ -49,14 +43,18 @@ namespace MedicationAPI
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            var modelBuilder = new ODataConventionModelBuilder();
+            // Add DbContext
             services.AddDbContext<MedicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
             });
+
+            // Add Scoped services
             services.AddScoped<IRepository<Medication>, RepositoryMedication>();
             services.AddScoped<IServiceMedication, ServiceMedication>();
+
+            // Add versioning
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
@@ -64,11 +62,20 @@ namespace MedicationAPI
                 options.ReportApiVersions = true;
 
             });
+
+            services.AddMvc(options =>
+            {
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
+
+            // Add controllers and OData
+            ODataConventionModelBuilder modelBuilder = new ODataConventionModelBuilder();
             services.AddControllers().AddOData(
                 options => options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(null).AddRouteComponents(
                     "odata",
                     modelBuilder.GetEdmModel()));
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            // Add Swagger
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }

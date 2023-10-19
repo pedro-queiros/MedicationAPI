@@ -3,52 +3,56 @@
 namespace MedicationAPI_BAL.Contracts
 {
     /// <summary>
-    /// IServiceMedication Interface with CRUD methods.
+    /// IServiceMedication interface which describe the methods to manage medications.
     /// </summary>
     public interface IServiceMedication
     {
         #region Methods
 
         /// <summary>
-        /// Gets all asynchronous.
+        /// Gets all medications asynchronous.
         /// </summary>
         /// <returns>
-        /// Enumerable of Medication.
+        /// The enumerable of medications.
         /// </returns>
         Task<IEnumerable<Medication>> GetAllAsync();
 
         /// <summary>
-        /// Gets the by identifier asynchronous.
+        /// Gets the medication by identifier asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
-        /// Medication with the respective id.
+        /// The medication with the corresponding identifier.
         /// </returns>
         Task<Medication> GetByIdAsync(int id);
 
         /// <summary>
-        /// Creates the asynchronous.
+        /// Creates the medication asynchronous.
         /// </summary>
         /// <param name="medication">The medication.</param>
         /// <returns>
-        /// Medication created.
+        /// The medication created.
         /// </returns>
         Task<Medication> CreateAsync(Medication medication);
 
         /// <summary>
-        /// Updates the asynchronous.
+        /// Updates the medication asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="medication">The medication.</param>
-        /// <returns></returns>
-        Task UpdateAsync(int id, Medication medication);
+        /// <returns>
+        /// The medication updated.
+        /// </returns>
+        Task<Medication> UpdateAsync(int id, Medication medication);
 
         /// <summary>
-        /// Deletes the asynchronous.
+        /// Deletes the medication asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns></returns>
-        Task DeleteAsync(int id);
+        /// <returns>
+        /// Returns 1 if successfully deleted, otherwise returns 0.
+        /// </returns>
+        Task<int> DeleteAsync(int id);
 
         #endregion
     }

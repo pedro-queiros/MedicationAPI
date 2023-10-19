@@ -9,7 +9,7 @@ namespace MedicationAPI_DAL.Data
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
     public class MedicationDbContext : DbContext
     {
-        #region Constructores
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MedicationDbContext"/> class.
@@ -34,13 +34,13 @@ namespace MedicationAPI_DAL.Data
 
         #endregion
 
-        #region DbSet
+        #region Properties
 
         /// <summary>
         /// Gets or sets the medications.
         /// </summary>
         /// <value>
-        /// The medications.
+        /// The DbSet of medications.
         /// </value>
         public virtual DbSet<Medication> Medications { get; set; }
 

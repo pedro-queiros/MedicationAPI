@@ -2,20 +2,18 @@
 using MedicationAPI_DAL.Data;
 using MedicationAPI_DAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MedicationAPI_DAL.Repositories
 {
     /// <summary>
-    /// RepositoryMedication class responsible for interacting with the DbContext.
+    /// RepositoryMedication class which implements IRepository<Medication> interface.
     /// </summary>
     /// <seealso cref="MedicationAPI_DAL.Contracts.IRepository&lt;MedicationAPI_DAL.Models.Medication&gt;" />
     public class RepositoryMedication : IRepository<Medication>
     {
         #region Attributes
 
-        /// <summary>
-        /// The medication database context
-        /// </summary>
         private readonly MedicationDbContext _medicationDbContext;
 
         #endregion
@@ -35,63 +33,39 @@ namespace MedicationAPI_DAL.Repositories
 
         #region Public Methods
 
-        /// <summary>
-        /// Gets all Medication asynchronous.
-        /// </summary>
-        /// <returns>
-        /// Enumerable of Medication.
-        /// </returns>
+        /// <inheritdoc />
         public async Task<IEnumerable<Medication>> GetAllAsync()
         {
-
             return await _medicationDbContext.Medications.ToListAsync();
-
         }
 
-        /// <summary>
-        /// Gets the Medication by identifier asynchronous.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>
-        /// Medication with the respective id.
-        /// </returns>
+        /// <inheritdoc />
         public async Task<Medication> GetByIdAsync(int id)
         {
-
             return await _medicationDbContext.Medications.FindAsync(id);
-
         }
 
-        /// <summary>
-        /// Creates Medication asynchronous.
-        /// </summary>
-        /// <param name="medication">The medication.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Medication> CreateAsync(Medication medication)
         {
-            _medicationDbContext.Add(medication);
+            EntityEntry<Medication> result = _medicationDbContext.Add(medication);
             await _medicationDbContext.SaveChangesAsync();
-            return medication;
+            return result.Entity;
         }
 
-        /// <summary>
-        /// Updates the Medication asynchronous.
-        /// </summary>
-        /// <param name="medication">The medication.</param>
-        public async Task UpdateAsync(Medication medication)
+        /// <inheritdoc />
+        public async Task<Medication> UpdateAsync(Medication medication)
         {
-            _medicationDbContext.Update(medication);
+            EntityEntry<Medication> result = _medicationDbContext.Update(medication);
             await _medicationDbContext.SaveChangesAsync();
+            return result.Entity;
         }
 
-        /// <summary>
-        /// Deletes the Medication asynchronous.
-        /// </summary>
-        /// <param name="medication">The medication.</param>
-        public async Task DeleteAsync(Medication medication)
+        /// <inheritdoc />
+        public async Task<int> DeleteAsync(Medication medication)
         {
             _medicationDbContext.Remove(medication);
-            await _medicationDbContext.SaveChangesAsync();
+            return await _medicationDbContext.SaveChangesAsync();
         }
 
         #endregion

@@ -11,13 +11,24 @@ namespace MedicationAPI_DAL.Tests
 {
     public class MedicationRepositoryTest
     {
+        #region Attributes
+
         private readonly Mock<MedicationDbContext> _dbContext;
         private readonly RepositoryMedication _repository;
+
+        #endregion
+
+        #region Constructors
+
         public MedicationRepositoryTest()
         {
             _dbContext = new Mock<MedicationDbContext>();
             _repository = new RepositoryMedication(_dbContext.Object);
         }
+
+        #endregion
+
+        #region Public Test Methods
 
         [Fact]
         public async Task TestGetMedications()
@@ -105,5 +116,7 @@ namespace MedicationAPI_DAL.Tests
             _dbContext.Verify(m => m.Remove(It.IsAny<Medication>()), Times.Once());
             _dbContext.Verify(m => m.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once());
         }
+
+        #endregion
     }
 }

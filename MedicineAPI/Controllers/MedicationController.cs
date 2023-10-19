@@ -1,10 +1,8 @@
 ﻿using Asp.Versioning;
 using MedicationAPI_DAL.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using Microsoft.EntityFrameworkCore;
 using MedicationAPI_BAL.Contracts;
 
 namespace MedicationAPI.Controllers

@@ -2,6 +2,8 @@ using MedicationAPI;
 
 public static class Program
 {
+    #region Main Function
+
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -14,4 +16,6 @@ public static class Program
 
         app.Run();
     }
+
+    #endregion
 }

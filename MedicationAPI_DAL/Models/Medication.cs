@@ -7,6 +7,7 @@ namespace MedicationAPI_DAL.Models
     /// </summary>
     public class Medication
     {
+        #region Attributes
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -39,5 +40,7 @@ namespace MedicationAPI_DAL.Models
         /// The creation date.
         /// </value>
         public DateTime CreationDate { get; set; }
+
+        #endregion
     }
 }

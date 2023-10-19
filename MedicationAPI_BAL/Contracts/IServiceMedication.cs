@@ -4,6 +4,8 @@ namespace MedicationAPI_BAL.Contracts
 {
     public interface IServiceMedication
     {
+        #region Methods
+
         Task<IEnumerable<Medication>> GetAllAsync();
 
         Task<Medication> GetByIdAsync(int id);
@@ -13,5 +15,7 @@ namespace MedicationAPI_BAL.Contracts
         Task UpdateAsync(int id, Medication medication);
 
         Task DeleteAsync(int id);
+
+        #endregion
     }
 }

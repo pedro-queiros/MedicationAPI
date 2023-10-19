@@ -7,12 +7,22 @@ namespace MedicationAPI_BAL.Services
 {
     public class ServiceMedication : IServiceMedication
     {
+        #region Attributes
+
         public readonly IRepository<Medication> _repository;
+
+        #endregion
+
+        #region Constructores
 
         public ServiceMedication(IRepository<Medication> repository)
         {
             _repository = repository;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public async Task<IEnumerable<Medication>> GetAllAsync()
         {
@@ -63,5 +73,7 @@ namespace MedicationAPI_BAL.Services
             }
 
         }
+
+        #endregion
     }
 }

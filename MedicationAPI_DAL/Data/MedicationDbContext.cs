@@ -5,6 +5,8 @@ namespace MedicationAPI_DAL.Data
 {
     public class MedicationDbContext : DbContext
     {
+        #region Constructores
+
         public MedicationDbContext(DbContextOptions<MedicationDbContext> options) : base(options)
         {
 
@@ -15,6 +17,12 @@ namespace MedicationAPI_DAL.Data
             
         }
 
+        #endregion
+
+        #region DbSet
+
         public virtual DbSet<Medication> Medications { get; set; }
+
+        #endregion
     }
 }

@@ -13,12 +13,22 @@ namespace MedicationAPI
 {
     public class Startup
     {
+        #region Attributes
+
         public IConfiguration Configuration { get; }
+
+        #endregion
+
+        #region Constructores
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -56,5 +66,7 @@ namespace MedicationAPI
 
             app.UseHttpsRedirection();
         }
+
+        #endregion
     }
 }

@@ -4,6 +4,8 @@ namespace MedicationAPI_DAL.Tests
 {
     public static class TestDataHelper
     {
+        #region Public Methods
+
         public static List<Medication> GetFakeMedicationList()
         {
             return new List<Medication>()
@@ -13,5 +15,7 @@ namespace MedicationAPI_DAL.Tests
                 new Medication { Id = 3, Name = "Test3", Quantity = 10, CreationDate = new DateTime(2023, 10, 10) },
             };
         }
+
+        #endregion
     }
 }

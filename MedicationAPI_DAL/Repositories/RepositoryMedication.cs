@@ -7,12 +7,22 @@ namespace MedicationAPI_DAL.Repositories
 {
     public class RepositoryMedication : IRepository<Medication>
     {
+        #region Attributes
+
         private readonly MedicationDbContext _medicationDbContext;
+
+        #endregion
+
+        #region Constructors
 
         public RepositoryMedication(MedicationDbContext medicationDbContext)
         {
             _medicationDbContext = medicationDbContext;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public async Task<IEnumerable<Medication>> GetAllAsync()
         {
@@ -46,5 +56,7 @@ namespace MedicationAPI_DAL.Repositories
             _medicationDbContext.Remove(medication);
             await _medicationDbContext.SaveChangesAsync();
         }
+
+        #endregion
     }
 }

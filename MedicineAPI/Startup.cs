@@ -1,5 +1,10 @@
 ﻿using Asp.Versioning;
-using MedicationAPI.Models;
+using MedicationAPI_BAL.Contracts;
+using MedicationAPI_BAL.Services;
+using MedicationAPI_DAL.Contracts;
+using MedicationAPI_DAL.Data;
+using MedicationAPI_DAL.Models;
+using MedicationAPI_DAL.Repositories;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
@@ -18,11 +23,13 @@ namespace MedicationAPI
         public void ConfigureServices(IServiceCollection services)
         {
             var modelBuilder = new ODataConventionModelBuilder();
-            services.AddDbContext<MedicationDb>(options =>
+            services.AddDbContext<MedicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
             });
+            services.AddScoped<IRepository<Medication>, RepositoryMedication>();
+            services.AddScoped<IServiceMedication, ServiceMedication>();
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;
@@ -30,7 +37,6 @@ namespace MedicationAPI
                 options.ReportApiVersions = true;
 
             });
-            services.AddScoped<IMedicationDb, MedicationDb>();
             services.AddControllers().AddOData(
                 options => options.Select().Filter().OrderBy().Expand().Count().SetMaxTop(null).AddRouteComponents(
                     "odata",

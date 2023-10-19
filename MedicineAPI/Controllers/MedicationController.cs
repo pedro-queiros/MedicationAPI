@@ -1,9 +1,11 @@
 ﻿using Asp.Versioning;
-using MedicationAPI.Models;
+using MedicationAPI_DAL.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
+using MedicationAPI_BAL.Contracts;
 
 namespace MedicationAPI.Controllers
 {
@@ -18,15 +20,15 @@ namespace MedicationAPI.Controllers
     {
         #region Members
 
-        private readonly IMedicationDb _db;
+        private readonly IServiceMedication _serviceMedication;
 
         #endregion
 
         #region Constructor
 
-        public MedicationController(IMedicationDb db)
+        public MedicationController(IServiceMedication serviceMedication)
         {
-            _db = db;
+            _serviceMedication = serviceMedication;
         }
 
         #endregion
@@ -44,8 +46,8 @@ namespace MedicationAPI.Controllers
         [EnableQuery()]
         public async Task<ActionResult<IEnumerable<Medication>>> GetMedications() 
         {
-            
-            return await _db.Medications.ToListAsync();
+
+            return Ok(await _serviceMedication.GetAllAsync());
 
         }
 
@@ -61,10 +63,12 @@ namespace MedicationAPI.Controllers
         public async Task<ActionResult<Medication>> GetMedication (int id)
         {
 
-            if ( await _db.Medications.FindAsync(id) is Medication medication)
-                return medication;
+            var medication = await _serviceMedication.GetByIdAsync(id);
+            if (medication != null)
+                return Ok(medication);
 
-            return NotFound();   
+            return NotFound();
+
         }
 
         [HttpPost]
@@ -72,32 +76,26 @@ namespace MedicationAPI.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult> CreateMedication (Medication medication)
         {
+
             if (medication is null)
                 return BadRequest();
 
-            _db.Medications.Add(medication);
-            await _db.SaveChangesAsync();
+            await _serviceMedication.CreateAsync(medication);
 
             return CreatedAtAction(nameof(GetMedication), new { id = medication.Id }, medication);
+           
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> UpdateMedication (int id, Medication updatedMedication)
+        public async Task<ActionResult> UpdateMedication (int id, Medication medication)
         {
-            var medication = await _db.Medications.FindAsync(id);
 
-            if (medication is null)
-                return NotFound();
-
-            medication.Name = updatedMedication.Name;
-            medication.Quantity = updatedMedication.Quantity;
-            medication.CreationDate = updatedMedication.CreationDate;
-
-            await _db.SaveChangesAsync();
+            await _serviceMedication.UpdateAsync(id, medication);
 
             return NoContent();
+
         }
 
         [HttpDelete("{id}")]
@@ -105,15 +103,11 @@ namespace MedicationAPI.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult> DeleteMedication (int id)
         {
-            if (await _db.Medications.FindAsync(id) is Medication medication)
-            {
-                _db.Medications.Remove(medication);
-                await _db.SaveChangesAsync();
-                return NoContent();
-            }
 
+            await _serviceMedication.DeleteAsync(id);
 
-            return NotFound();
+            return NoContent();
+
         }
 
         #endregion

@@ -20,4 +20,9 @@
     <PackageReference Include="System.Linq" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MedicationAPI_BAL\MedicationAPI_BAL.csproj" />
+    <ProjectReference Include="..\MedicationAPI_DAL\MedicationAPI_DAL.csproj" />
+  </ItemGroup>
+
 </Project>

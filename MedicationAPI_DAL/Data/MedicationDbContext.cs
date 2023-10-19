@@ -10,6 +10,11 @@ namespace MedicationAPI_DAL.Data
 
         }
 
-        public DbSet<Medication> Medications { get; set; }
+        public MedicationDbContext()
+        {
+            
+        }
+
+        public virtual DbSet<Medication> Medications { get; set; }
     }
 }

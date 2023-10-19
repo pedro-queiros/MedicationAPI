@@ -1,6 +1,6 @@
-﻿using MedicationAPI.Models;
+﻿using MedicationAPI_DAL.Models;
 
-namespace MedicationAPI.Tests
+namespace MedicationAPI_DAL.Tests
 {
     public static class TestDataHelper
     {

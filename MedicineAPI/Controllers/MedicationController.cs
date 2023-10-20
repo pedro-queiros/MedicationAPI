@@ -1,16 +1,16 @@
 ﻿using Asp.Versioning;
-using MedicationAPI_DAL.Models;
+using Data;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using MedicationAPI_BAL.Contracts;
 
-namespace MedicationAPI.Controllers
+namespace Host
 {
     /// <summary>
     /// The Medication Controller to manage the medication actions.
     /// </summary>
-    /// <seealso cref="Microsoft.AspNetCore.OData.Routing.Controllers.ODataController" />
+    /// <seealso cref="ODataController" />
     [ApiController]
     [Route("/api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
@@ -47,7 +47,7 @@ namespace MedicationAPI.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [EnableQuery()]
-        public async Task<ActionResult<IEnumerable<Medication>>> GetAllMedicationsAsync() 
+        public async Task<ActionResult<IEnumerable<Medication>>> GetAllMedicationsAsync()
         {
             try
             {
@@ -56,8 +56,8 @@ namespace MedicationAPI.Controllers
             catch (Exception ex)
             {
                 HandleUnexpectedError("GetAllMedicationsAsync", ex);
-                return StatusCode(StatusCodes.Status500InternalServerError,  "Internal Server Error");
-            }            
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace MedicationAPI.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> CreateMedicationAsync(Medication medication)
+        public async Task<ActionResult> CreateMedicationAsync([FromBody] MedicationDTO medication)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace MedicationAPI.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult> UpdateMedicationAsync(int id, Medication medication)
+        public async Task<ActionResult> UpdateMedicationAsync(int id, [FromBody] MedicationDTO medication)
         {
             try
             {

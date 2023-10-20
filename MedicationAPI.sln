@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicationAPI", "MedicineAPI\MedicationAPI.csproj", "{27D2689F-D57B-4939-8C45-852BE5A5A73B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Host", "MedicineAPI\Host.csproj", "{27D2689F-D57B-4939-8C45-852BE5A5A73B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicationAPI.Tests", "MedicationAPI.Test\MedicationAPI.Tests.csproj", "{10639753-8D15-49B1-94B7-1C60217CE0AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Tests", "MedicationAPI.Test\Data.Tests.csproj", "{10639753-8D15-49B1-94B7-1C60217CE0AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicationAPI_DAL", "MedicationAPI_DAL\MedicationAPI_DAL.csproj", "{EF3D830F-1AE1-4E56-A93A-D8D79B81F4F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "MedicationAPI_DAL\Data.csproj", "{EF3D830F-1AE1-4E56-A93A-D8D79B81F4F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicationAPI_BAL", "MedicationAPI_BAL\MedicationAPI_BAL.csproj", "{92E52C00-384C-445E-BA56-B710355B694A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "MedicationAPI_BAL\Domain.csproj", "{92E52C00-384C-445E-BA56-B710355B694A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

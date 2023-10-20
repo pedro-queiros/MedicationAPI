@@ -1,6 +1,4 @@
-﻿using MedicationAPI_DAL.Models;
-
-namespace MedicationAPI.Tests
+﻿namespace Data.Tests
 {
     /// <summary>
     /// The MockData class with the mock data for the unit tests.
@@ -19,9 +17,9 @@ namespace MedicationAPI.Tests
         {
             return new List<Medication>()
             {
-                new Medication { Id = 1, Name = "Ben-u-ron", Quantity = 1, CreationDate = new DateTime(2023, 10, 17) },
-                new Medication { Id = 2, Name = "Brufen", Quantity = 5, CreationDate = new DateTime(2023, 10, 12) },
-                new Medication { Id = 3, Name = "Dermovate", Quantity = 10, CreationDate = new DateTime(2023, 10, 10) },
+                new Medication { Id = 1, Name = "Ben-u-ron", Quantity = 1, CreatedOn = new DateTime(2023, 10, 17) },
+                new Medication { Id = 2, Name = "Brufen", Quantity = 5, CreatedOn = new DateTime(2023, 10, 12) },
+                new Medication { Id = 3, Name = "Dermovate", Quantity = 10, CreatedOn = new DateTime(2023, 10, 10) },
             };
         }
 

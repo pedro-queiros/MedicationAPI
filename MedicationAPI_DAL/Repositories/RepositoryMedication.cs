@@ -1,15 +1,12 @@
-﻿using MedicationAPI_DAL.Contracts;
-using MedicationAPI_DAL.Data;
-using MedicationAPI_DAL.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace MedicationAPI_DAL.Repositories
+namespace Data
 {
     /// <summary>
     /// RepositoryMedication class which implements IRepository<Medication> interface.
     /// </summary>
-    /// <seealso cref="MedicationAPI_DAL.Contracts.IRepository&lt;MedicationAPI_DAL.Models.Medication&gt;" />
+    /// <seealso cref="Data.Contracts.IRepository&lt;Medication&gt;" />
     public class RepositoryMedication : IRepository<Medication>
     {
         #region Attributes

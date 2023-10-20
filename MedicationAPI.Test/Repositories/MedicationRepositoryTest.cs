@@ -1,12 +1,9 @@
-using MedicationAPI_DAL.Data;
-using MedicationAPI_DAL.Models;
-using MedicationAPI_DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
 using Xunit;
 
-namespace MedicationAPI.Tests
+namespace Data.Tests
 {
     /// <summary>
     /// The MedicationRespositoryTest class, having the unit test methods for the MedicationRepository class.
@@ -97,7 +94,7 @@ namespace MedicationAPI.Tests
         public async Task Test_CreateAsync()
         {
             // Arrange
-            Medication medication = new Medication() { Id = 4, Name = "Aspirina", Quantity = 15, CreationDate = new DateTime(2023, 10, 17) };
+            Medication medication = new Medication() { Id = 4, Name = "Aspirina", Quantity = 15, CreatedOn = new DateTime(2023, 10, 17) };
 
             // Act
             await _repository.CreateAsync(medication);
@@ -115,7 +112,7 @@ namespace MedicationAPI.Tests
         public async Task Test_UpdateAsync()
         {
             // Arrange
-            Medication medication = new Medication { Id = 2, Name = "Brufen", Quantity = 7, CreationDate = new DateTime(2023, 10, 12) };
+            Medication medication = new Medication { Id = 2, Name = "Brufen", Quantity = 7, CreatedOn = new DateTime(2023, 10, 12) };
 
             // Act
             await _repository.UpdateAsync(new Medication());
@@ -132,7 +129,7 @@ namespace MedicationAPI.Tests
         public async Task Test_DeleteAsync()
         {
             // Arrange
-            Medication medication = new Medication { Id = 2, Name = "Brufen", Quantity = 5, CreationDate = new DateTime(2023, 10, 12) };
+            Medication medication = new Medication { Id = 2, Name = "Brufen", Quantity = 5, CreatedOn = new DateTime(2023, 10, 12) };
 
             // Act
             await _repository.DeleteAsync(new Medication());

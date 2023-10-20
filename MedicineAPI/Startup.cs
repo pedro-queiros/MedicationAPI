@@ -1,15 +1,11 @@
 ﻿using Asp.Versioning;
-using MedicationAPI_BAL.Contracts;
-using MedicationAPI_BAL.Services;
-using MedicationAPI_DAL.Contracts;
-using MedicationAPI_DAL.Data;
-using MedicationAPI_DAL.Models;
-using MedicationAPI_DAL.Repositories;
+using Data;
+using Domain;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
 
-namespace MedicationAPI
+namespace Host
 {
     /// <summary>
     /// The Startup class to setup the initial configuration.
@@ -50,7 +46,11 @@ namespace MedicationAPI
 
             });
 
-            // Add Scoped services
+            // Add singleton services
+            services.AddAutoMapper(typeof(MappingProfile));
+            //services.AddSingleton<Profile, MappingProfile>();
+
+            // Add scoped services
             services.AddScoped<IRepository<Medication>, RepositoryMedication>();
             services.AddScoped<IServiceMedication, ServiceMedication>();
 

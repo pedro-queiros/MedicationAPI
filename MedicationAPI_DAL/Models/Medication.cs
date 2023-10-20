@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
-namespace MedicationAPI_DAL.Models
+namespace Data
 {
     /// <summary>
     /// Medication entity model representing a medication.
@@ -17,6 +16,8 @@ namespace MedicationAPI_DAL.Models
         /// <value>
         /// The identifier.
         /// </value>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
@@ -38,12 +39,12 @@ namespace MedicationAPI_DAL.Models
         public int Quantity { get; set; }
 
         /// <summary>
-        /// Gets or sets the creation date.
+        /// Gets or sets the created on.
         /// </summary>
         /// <value>
         /// The created on.
         /// </value>
-        public DateTime CreationDate { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         /// <summary>
         /// Gets or sets the updated on.
@@ -51,7 +52,7 @@ namespace MedicationAPI_DAL.Models
         /// <value>
         /// The updated on.
         /// </value>
-        //public DateTime UpdatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
 
         #endregion
     }

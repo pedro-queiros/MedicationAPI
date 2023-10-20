@@ -1,31 +1,32 @@
 ﻿using AutoMapper;
-using MedicationAPI_BAL.Contracts;
-using MedicationAPI_DAL.Contracts;
-using MedicationAPI_DAL.Models;
+using Data;
 
-namespace MedicationAPI_BAL.Services
+namespace Domain
 {
     /// <summary>
     /// ServiceMedication class which implements IServiceMedication interface.
     /// </summary>
-    /// <seealso cref="MedicationAPI_BAL.Contracts.IServiceMedication" />
+    /// <seealso cref="IServiceMedication" />
     public class ServiceMedication : IServiceMedication
     {
         #region Attributes
 
         private readonly IRepository<Medication> _repository;
+        private readonly IMapper _mapper;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ServiceMedication"/> class.
+        /// Initializes a new instance of the <see cref="ServiceMedication" /> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public ServiceMedication(IRepository<Medication> repository)
+        /// <param name="mapper">The mapper.</param>
+        public ServiceMedication(IRepository<Medication> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         #endregion
@@ -45,25 +46,27 @@ namespace MedicationAPI_BAL.Services
         }
 
         /// <inheritdoc />
-        public async Task<Medication> CreateAsync(Medication medication)
+        public async Task<Medication> CreateAsync(MedicationDTO medicationDTO)
         {
+            Medication medication = _mapper.Map<MedicationDTO, Medication>(medicationDTO);
+            medication.CreatedOn = DateTime.Now;
+            medication.UpdatedOn = DateTime.Now;
+
             return await _repository.CreateAsync(medication);
         }
 
         /// <inheritdoc />
-        public async Task<Medication> UpdateAsync(int id, Medication medication)
+        public async Task<Medication> UpdateAsync(int id, MedicationDTO medicationDTO)
         {
-            Medication _medication = await _repository.GetByIdAsync(id);
+            Medication medication = await _repository.GetByIdAsync(id);
 
-            if (_medication != null)
-            {
-                MapperConfiguration config = new MapperConfiguration(cfg => cfg.CreateMap<Medication, Medication>());
-                IMapper mapper = config.CreateMapper();
-                _medication = mapper.Map(medication, _medication);
-                return await _repository.UpdateAsync(_medication);
-            }
+            if (medication == null)
+                return null;
 
-            return null;
+            medication = _mapper.Map(medicationDTO, medication);
+            medication.UpdatedOn = DateTime.Now;
+
+            return await _repository.UpdateAsync(medication);
         }
 
         /// <inheritdoc />
@@ -71,7 +74,7 @@ namespace MedicationAPI_BAL.Services
         {
             Medication medication = await _repository.GetByIdAsync(id);
 
-            if (medication != null) 
+            if (medication != null)
                 return await _repository.DeleteAsync(medication);
 
             return 0;

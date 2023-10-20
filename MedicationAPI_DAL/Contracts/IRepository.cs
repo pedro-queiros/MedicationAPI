@@ -1,5 +1,4 @@
-﻿
-namespace MedicationAPI_DAL.Contracts
+﻿namespace Data
 {
     /// <summary>
     /// IRepository interface which describe the basic CRUD operations of a repository.

@@ -1,6 +1,6 @@
-﻿using MedicationAPI_DAL.Models;
+﻿using Data;
 
-namespace MedicationAPI_BAL.Contracts
+namespace Domain
 {
     /// <summary>
     /// IServiceMedication interface which describe the methods to manage medications.
@@ -33,7 +33,7 @@ namespace MedicationAPI_BAL.Contracts
         /// <returns>
         /// The medication created.
         /// </returns>
-        Task<Medication> CreateAsync(Medication medication);
+        Task<Medication> CreateAsync(MedicationDTO medication);
 
         /// <summary>
         /// Updates the medication asynchronous.
@@ -43,7 +43,7 @@ namespace MedicationAPI_BAL.Contracts
         /// <returns>
         /// The medication updated.
         /// </returns>
-        Task<Medication> UpdateAsync(int id, Medication medication);
+        Task<Medication> UpdateAsync(int id, MedicationDTO medication);
 
         /// <summary>
         /// Deletes the medication asynchronous.

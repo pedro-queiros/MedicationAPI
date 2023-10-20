@@ -1,12 +1,11 @@
-﻿using MedicationAPI_DAL.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace MedicationAPI_DAL.Data
+namespace Data
 {
     /// <summary>
     /// MedicationDbContext class representing a session with a medication database.
     /// </summary>
-    /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
+    /// <seealso cref="DbContext" />
     public class MedicationDbContext : DbContext
     {
         #region Constructors
@@ -29,7 +28,7 @@ namespace MedicationAPI_DAL.Data
         /// </remarks>
         public MedicationDbContext()
         {
-            
+
         }
 
         #endregion

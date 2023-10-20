@@ -14,22 +14,22 @@ namespace Host
     [ApiController]
     [Route("/api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class MedicationController : ODataController
+    public class MedicationsController : ODataController
     {
         #region Attributes
 
         private readonly IServiceMedication _serviceMedication;
-        private readonly ILogger<MedicationController> _logger;
+        private readonly ILogger<MedicationsController> _logger;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MedicationController"/> class.
+        /// Initializes a new instance of the <see cref="MedicationsController"/> class.
         /// </summary>
         /// <param name="serviceMedication">The service medication.</param>
-        public MedicationController(IServiceMedication serviceMedication, ILogger<MedicationController> logger)
+        public MedicationsController(IServiceMedication serviceMedication, ILogger<MedicationsController> logger)
         {
             _serviceMedication = serviceMedication;
             _logger = logger;

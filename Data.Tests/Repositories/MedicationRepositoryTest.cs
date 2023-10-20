@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MockQueryable.Moq;
 using Moq;
 using Xunit;
@@ -95,6 +96,7 @@ namespace Data.Tests
         {
             // Arrange
             Medication medication = new Medication() { Id = 4, Name = "Aspirina", Quantity = 15, CreatedOn = new DateTime(2023, 10, 17) };
+            //_dbContext.Setup(x => x.Medications.Add(medication).Entity).Returns(medication);
 
             // Act
             await _repository.CreateAsync(medication);
@@ -115,7 +117,7 @@ namespace Data.Tests
             Medication medication = new Medication { Id = 2, Name = "Brufen", Quantity = 7, CreatedOn = new DateTime(2023, 10, 12) };
 
             // Act
-            await _repository.UpdateAsync(new Medication());
+            await _repository.UpdateAsync(medication);
 
             // Assert
             _dbContext.Verify(m => m.Update(It.IsAny<Medication>()), Times.Once());

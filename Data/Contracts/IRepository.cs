@@ -9,7 +9,7 @@
         #region Methods
 
         /// <summary>
-        /// Gets all asynchronous.
+        /// Gets all asynchronously.
         /// </summary>
         /// <returns>
         /// The enumerable of T.
@@ -17,7 +17,7 @@
         public Task<IEnumerable<T>> GetAllAsync();
 
         /// <summary>
-        /// Gets by identifier asynchronous.
+        /// Gets by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
@@ -26,7 +26,7 @@
         public Task<T> GetByIdAsync(int id);
 
         /// <summary>
-        /// Creates the T asynchronous.
+        /// Creates the T asynchronously.
         /// </summary>
         /// <param name="_object">The T object.</param>
         /// <returns>
@@ -35,16 +35,16 @@
         public Task<T> CreateAsync(T _object);
 
         /// <summary>
-        /// Updates the T asynchronous.
+        /// Updates the T asynchronously.
         /// </summary>
         /// <param name="_object">The T object.</param>
         /// <returns>
-        /// The T updated.
+        /// Returns 1 if successfully updated, otherwise returns 0.
         /// </returns>
-        public Task<T> UpdateAsync(T _object);
+        public Task<int> UpdateAsync(T _object);
 
         /// <summary>
-        /// Deletes the T asynchronous.
+        /// Deletes the T asynchronously.
         /// </summary>
         /// <param name="_object">The T object.</param>
         /// <returns>

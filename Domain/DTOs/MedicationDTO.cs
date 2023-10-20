@@ -3,7 +3,7 @@
 namespace Domain
 {
     /// <summary>
-    /// Medication entity model representing a medication.
+    /// Medication DTO.
     /// </summary>
     public class MedicationDTO
     {

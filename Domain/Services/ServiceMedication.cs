@@ -56,12 +56,12 @@ namespace Domain
         }
 
         /// <inheritdoc />
-        public async Task<Medication> UpdateAsync(int id, MedicationDTO medicationDTO)
+        public async Task<int> UpdateAsync(int id, MedicationDTO medicationDTO)
         {
             Medication medication = await _repository.GetByIdAsync(id);
 
             if (medication == null)
-                return null;
+                return 0;
 
             medication = _mapper.Map(medicationDTO, medication);
             medication.UpdatedOn = DateTime.Now;
@@ -74,10 +74,10 @@ namespace Domain
         {
             Medication medication = await _repository.GetByIdAsync(id);
 
-            if (medication != null)
-                return await _repository.DeleteAsync(medication);
-
-            return 0;
+            if (medication == null)
+                return 0;
+            
+            return await _repository.DeleteAsync(medication);
         }
 
         #endregion

@@ -45,17 +45,16 @@ namespace Data
         /// <inheritdoc />
         public async Task<Medication> CreateAsync(Medication medication)
         {
-            EntityEntry<Medication> result = _medicationDbContext.Add(medication);
+            _medicationDbContext.Add(medication);
             await _medicationDbContext.SaveChangesAsync();
-            return result.Entity;
+            return medication;
         }
 
         /// <inheritdoc />
-        public async Task<Medication> UpdateAsync(Medication medication)
+        public async Task<int> UpdateAsync(Medication medication)
         {
-            EntityEntry<Medication> result = _medicationDbContext.Update(medication);
-            await _medicationDbContext.SaveChangesAsync();
-            return result.Entity;
+            _medicationDbContext.Update(medication);
+            return await _medicationDbContext.SaveChangesAsync();
         }
 
         /// <inheritdoc />

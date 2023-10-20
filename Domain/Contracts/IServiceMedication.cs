@@ -10,7 +10,7 @@ namespace Domain
         #region Methods
 
         /// <summary>
-        /// Gets all medications asynchronous.
+        /// Gets all medications asynchronously.
         /// </summary>
         /// <returns>
         /// The enumerable of medications.
@@ -18,7 +18,7 @@ namespace Domain
         Task<IEnumerable<Medication>> GetAllAsync();
 
         /// <summary>
-        /// Gets the medication by identifier asynchronous.
+        /// Gets the medication by identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
@@ -27,26 +27,26 @@ namespace Domain
         Task<Medication> GetByIdAsync(int id);
 
         /// <summary>
-        /// Creates the medication asynchronous.
+        /// Creates the medication asynchronously.
         /// </summary>
-        /// <param name="medication">The medication.</param>
+        /// <param name="medication">The medication DTO.</param>
         /// <returns>
         /// The medication created.
         /// </returns>
-        Task<Medication> CreateAsync(MedicationDTO medication);
+        Task<Medication> CreateAsync(MedicationDTO medicationDTO);
 
         /// <summary>
-        /// Updates the medication asynchronous.
+        /// Updates the medication asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="medication">The medication.</param>
+        /// <param name="medication">The medication DTO.</param>
         /// <returns>
-        /// The medication updated.
+        /// Returns 1 if successfully updated, otherwise returns 0.
         /// </returns>
-        Task<Medication> UpdateAsync(int id, MedicationDTO medication);
+        Task<int> UpdateAsync(int id, MedicationDTO medicationDTO);
 
         /// <summary>
-        /// Deletes the medication asynchronous.
+        /// Deletes the medication asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>

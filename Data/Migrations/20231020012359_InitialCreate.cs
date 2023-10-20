@@ -27,6 +27,7 @@ namespace Data.Migrations
                     table.PrimaryKey("PK_Medications", x => x.Id);
                     table.CheckConstraint("CHK_Quantity", "Quantity > 0");
                     table.CheckConstraint("CHK_Name", "LEN(Name) > 0");
+                    table.CheckConstraint("CHK_UpdatedOn", "UpdatedOn >= CreatedOn");
                 });
         }
 

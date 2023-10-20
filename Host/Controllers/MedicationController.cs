@@ -40,7 +40,7 @@ namespace Host
         #region Public Methods
 
         /// <summary>
-        /// Gets all medications asynchronous.
+        /// Gets all medications asynchronously.
         /// </summary>
         /// <returns>
         /// The enumerable of medications.</returns>
@@ -61,7 +61,7 @@ namespace Host
         }
 
         /// <summary>
-        /// Gets the medication asynchronous.
+        /// Gets the medication asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
@@ -77,7 +77,7 @@ namespace Host
             {
                 Medication medication = await _serviceMedication.GetByIdAsync(id);
 
-                if (medication is null)
+                if (medication == null)
                     return NotFound();
 
                 return Ok(medication);
@@ -90,7 +90,7 @@ namespace Host
         }
 
         /// <summary>
-        /// Creates the medication asynchronous.
+        /// Creates the medication asynchronously.
         /// </summary>
         /// <param name="medication">The medication.</param>
         /// <returns>
@@ -103,7 +103,7 @@ namespace Host
         {
             try
             {
-                if (medication is null)
+                if (medication == null)
                     return BadRequest();
 
                 Medication result = await _serviceMedication.CreateAsync(medication);
@@ -118,7 +118,7 @@ namespace Host
         }
 
         /// <summary>
-        /// Updates the medication asynchronous.
+        /// Updates the medication asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="medication">The medication.</param>
@@ -130,10 +130,10 @@ namespace Host
         {
             try
             {
-                if (medication is null)
+                if (medication == null)
                     return BadRequest();
 
-                if (await _serviceMedication.UpdateAsync(id, medication) is null)
+                if (await _serviceMedication.UpdateAsync(id, medication) == 0)
                     return NotFound();
 
                 return NoContent();
@@ -146,7 +146,7 @@ namespace Host
         }
 
         /// <summary>
-        /// Deletes the medication asynchronous.
+        /// Deletes the medication asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
         [HttpDelete("{id}")]
